@@ -23,20 +23,22 @@ namespace UnicamCompleanno
 
                 //Ora calcoliamo i giorni che ci separano dal prossimo compleanno
                 DateTime dataProssimoCompleanno = new DateTime(DateTime.Today.Year, dataDiNascita.Month, dataDiNascita.Day);
+                TimeSpan differenzaTemporale = dataProssimoCompleanno - DateTime.Today;                
+                double differenzaInGiorni = differenzaTemporale.TotalDays;
                 
-                if(dataProssimoCompleanno.Month < DateTime.Today.Month || (dataProssimoCompleanno.Month == DateTime.Today.Month && dataProssimoCompleanno.Day < DateTime.Today.Day) )
+                if(dataProssimoCompleanno.Month < DateTime.Today.Month || 
+                        (dataProssimoCompleanno.Month == DateTime.Today.Month 
+                        && dataProssimoCompleanno.Day < DateTime.Today.Day))
                 {
-                    TimeSpan differenzaTemporale = dataProssimoCompleanno - DateTime.Today;                
-                    double differenzaInGiorni = differenzaTemporale.TotalDays + 365;
+                    differenzaInGiorni += 365;
                     Console.WriteLine($"Restano {differenzaInGiorni} giorni al tuo prossimo compleanno!");
                 }
                 else if(dataProssimoCompleanno.Month == DateTime.Today.Month && dataProssimoCompleanno.Day == DateTime.Today.Day)
                     Console.WriteLine($"Tanti auguri!");
-                else{
-                    TimeSpan differenzaTemporale = dataProssimoCompleanno - DateTime.Today;                
-                    double differenzaInGiorni = differenzaTemporale.TotalDays;
+                else               
                     Console.WriteLine($"Restano {differenzaInGiorni} giorni al tuo prossimo compleanno!");
-                }
+                
+
 
             } catch (Exception exc) {
                 Console.WriteLine($"Non hai digitato una data valida, il programma ora terminera'. L'errore e' stato: {exc.Message}.");
