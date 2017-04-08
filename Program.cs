@@ -18,14 +18,25 @@ namespace UnicamCompleanno
                 //.NET non ha un modo facile per ottenere la differenza in anni
                 //andiamo a vedere su StackOverlow se qualcuno ha già avuto la stessa necessità
                 //Il metodo Years è stato preso da lì (è definito più in basso, in questo file)
-                string anniDiDifferenza = Years(dataDiNascita, DateTime.Today);
+                string anniDiDifferenza = (Years(dataDiNascita, DateTime.Today)).ToString();
                 Console.WriteLine($"Oggi hai {anniDiDifferenza} anni");
 
                 //Ora calcoliamo i giorni che ci separano dal prossimo compleanno
                 DateTime dataProssimoCompleanno = new DateTime(DateTime.Today.Year, dataDiNascita.Month, dataDiNascita.Day);
-                TimeSpan differenzaTemporale = dataProssimoCompleanno - DateTime.Today;
-                double differenzaInGiorni = differenzaTemporale.TotalDays;
-                Console.WriteLine($"Restano {differenzaInGiorni} giorni al tuo prossimo compleanno!");
+                
+                if(dataProssimoCompleanno.Month < DateTime.Today.Month || (dataProssimoCompleanno.Month == DateTime.Today.Month && dataProssimoCompleanno.Day < DateTime.Today.Day) )
+                {
+                    TimeSpan differenzaTemporale = dataProssimoCompleanno - DateTime.Today;                
+                    double differenzaInGiorni = differenzaTemporale.TotalDays + 365;
+                    Console.WriteLine($"Restano {differenzaInGiorni} giorni al tuo prossimo compleanno!");
+                }
+                else if(dataProssimoCompleanno.Month == DateTime.Today.Month && dataProssimoCompleanno.Day == DateTime.Today.Day)
+                    Console.WriteLine($"Tanti auguri!");
+                else{
+                    TimeSpan differenzaTemporale = dataProssimoCompleanno - DateTime.Today;                
+                    double differenzaInGiorni = differenzaTemporale.TotalDays;
+                    Console.WriteLine($"Restano {differenzaInGiorni} giorni al tuo prossimo compleanno!");
+                }
 
             } catch (Exception exc) {
                 Console.WriteLine($"Non hai digitato una data valida, il programma ora terminera'. L'errore e' stato: {exc.Message}.");
